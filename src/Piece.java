@@ -2,31 +2,15 @@ import java.util.LinkedList;
 
 public class Piece {
 
-	private int xCoord;
-	private int yCoord;
-	protected Square currentLoc;
+	protected LinkedList<Square> possibleMoves = new LinkedList<Square>();
+	protected Square currentSquare;
 	
 	public Piece(int x, int y){
-		xCoord = x;
-		yCoord = y;
+			currentSquare = new Square(x,y);
 	}
 	
 	public Piece(Square s){
-		xCoord = s.getxCoord();
-		yCoord = s.getyCoord();
-	}
-	
-	public int getxCoord() {
-		return xCoord;
-	}
-	public void setxCoord(int xCoord) {
-		this.xCoord = xCoord;
-	}
-	public int getyCoord() {
-		return yCoord;
-	}
-	public void setyCoord(int yCoord) {
-		this.yCoord = yCoord;
+		currentSquare = s;
 	}
 	
 	

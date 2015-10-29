@@ -1,17 +1,17 @@
 import java.util.LinkedList;
 
 public class Knight extends Piece {
-	private LinkedList<Square> possibleMoves = new LinkedList<Square>();
 
-	private int legalOffsets[][] = 
-								{ 	{ 1, -2 }, 
-									{ 2, -1 }, 
+	private final int LEGAL_OFFSETS[][] = 
+								{ 	{ 2, -1 }, 
+									{ -1, -2 },
 									{ 2, 1 }, 
-									{ 1, 2 },
-									{ -1, 2 }, 
 									{ -2, 1 }, 
 									{ -2, -1 }, 
-									{ -1, -2 }	};
+									{ 1, -2 }, 
+									{ 1, 2 },
+									{ -1, 2 }, 
+									};
 	
 	public Knight(int x, int y) {
 		super(x, y);
@@ -23,8 +23,8 @@ public class Knight extends Piece {
 
 	private void calculatePossibleMoves() {
 		Square temp;
-		for (int[] offset : legalOffsets){
-			temp = new Square(this.getxCoord() + offset[0], this.getyCoord() + offset[1]);
+		for (int[] offset : LEGAL_OFFSETS){
+			temp = new Square(currentSquare.getX() + offset[0], currentSquare.getY() + offset[1]);
 			if (!temp.offBoard())
 				possibleMoves.add(temp);
 		}
@@ -36,6 +36,6 @@ public class Knight extends Piece {
 	}
 	
 	public Square getSquare(){
-		return new Square(getxCoord(), getyCoord());
+		return currentSquare;
 	}
 }

@@ -1,53 +1,60 @@
 public class Square {
 
-	private int xCoord;
-	private int yCoord;
-	private final String[] COORDINATE_LETTERS = { null, "A", "B", "C", "D", "E", "F",
-			"G", "H" };
+	private int x;
+	private int y;
+
+	// For simplicity purposes, the 0th index is not used for the coordinates.
+	private final String[] COORDINATE_LETTERS = { null, "A", "B", "C", "D",
+			"E", "F", "G", "H" };
+	private final int BOARD_LOWER_BOUND = 1;
+	private final int BOARD_UPPER_BOUND = 8;
 
 	public Square(int x, int y) {
-		xCoord = x;
-		yCoord = y;
-	}
-	
-	public Square(String algCoord){
-		xCoord  = algCoord.charAt(0) - 'A' + 1;
-		
-		yCoord  = algCoord.charAt(1) - '0';
+		this.x = x;
+		this.y = y;
 	}
 
-	public int getxCoord() {
-		return xCoord;
+	public Square(String coord) throws Exception {
+		validateInput(coord);
+		x = coord.charAt(0) - 'A' + 1;
+		y = coord.charAt(1) - '0';
 	}
 
-	public void setxCoord(int xCoord) {
-		this.xCoord = xCoord;
+	private void validateInput(String coord) throws Exception {
+		if (coord.length() > 2)
+			throw new Exception("Invalid coordinate");
+		if (coord.charAt(0) < 'A' || coord.charAt(0) > 'H'
+				|| coord.charAt(1) < ('0' + BOARD_LOWER_BOUND)
+				|| coord.charAt(1) > ('0' + BOARD_UPPER_BOUND))
+			throw new Exception("Invalid coordinate");
 	}
 
-	public int getyCoord() {
-		return yCoord;
+	public int getX() {
+		return x;
 	}
 
-	public void setyCoord(int yCoord) {
-		this.yCoord = yCoord;
+	public int getY() {
+		return y;
 	}
 
 	public String getCoord() {
-		return (COORDINATE_LETTERS[xCoord] + yCoord);
+		return (COORDINATE_LETTERS[x] + y);
 	}
 
 	public boolean offBoard() {
-		return (xCoord < 1 || yCoord < 1 || yCoord > 8 || xCoord > 8);
+		return (x < BOARD_LOWER_BOUND || y < BOARD_LOWER_BOUND
+				|| y > BOARD_UPPER_BOUND || x > BOARD_UPPER_BOUND);
 	}
-	
+
 	@Override
-	public boolean equals(Object other){
-		return this.getxCoord() == ((Square) other).getxCoord() && this.getyCoord() == ((Square) other).getyCoord();
+	public boolean equals(Object other) {
+		return this.x == ((Square) other).getX()
+				&& this.y == ((Square) other).getY();
 	}
-	
+
 	@Override
-	public String toString(){
-		return (COORDINATE_LETTERS[xCoord] + yCoord);
+	public String toString() {
+		return (COORDINATE_LETTERS[x] + y);
 	}
 
 }
